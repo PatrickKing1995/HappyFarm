@@ -11,13 +11,15 @@ import {
   Text,
   View
 } from 'react-native';
-import {TabApp} from '';
+import {TabComponent} from './src/route/TabComponent';
+import {Login_HomeNavigation} from './src/route/StackComponent'
+import LoadingComponent from './src/components/LoadingComponent'
 
 
 export default class App extends Component{
   render() {
     return (
-        <TabApp/>
+        <Login_HomeNavigation/>
     )
   }
 }

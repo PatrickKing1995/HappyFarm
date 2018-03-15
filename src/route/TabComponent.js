@@ -10,69 +10,86 @@ import {
     Dimensions
 } from 'react-native';
 import {
-    TabNavigator,
+    TabNavigator, StackNavigator
 } from 'react-navigation';
-import Count from '../route/Count'
+import AddDeviceComponent from '../components/AddDeviceComponent';
+import HomeComponent from '../components/HomeComponent';
+import ARComponent from '../components/ARComponent';
+import DeviceComponent from '../components/DeviceComponent';
+import NotificationComponent from '../components/NotificationComponent';
 const {
     height
 } = Dimensions.get('window')
 
-export const TabComponent = TabNavigator({
-    Screen_: {
-        screen: Details,
+export const Device_AddNavigation = StackNavigator({
+    Screen_Device: {
+        screen: DeviceComponent,
         navigationOptions: {
-            tabBarLabel: () => <Text style = {tab.text}>Movies</Text>,
-            tabBarIcon: () =><Image source = {require('../../icons/home.png')} style = {tab.icon}/>
-
+            header: null,
         }
     },
-    Screen_Favor: {
-        screen: DetailsFavor,
+    Screen_AddDevice: {
+        screen: AddDeviceComponent,
+        navigationOptions: {
+            header: null,
+        }
+    }
+})
+
+
+export const Home_NotifiNavigation = StackNavigator({
+    Screen_Home: {
+        screen: HomeComponent,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    Screen_Notifi: {
+        screen: NotificationComponent,
+        navigationOptions: {
+            header: null,
+        }
+    }
+})
+
+
+export const TabComponent = TabNavigator({
+    Screen_Home: {
+        screen: Home_NotifiNavigation,
+        navigationOptions: {
+            tabBarLabel: () => <Text style = {tab.text}>Home</Text>,
+            tabBarIcon: () =>
+            <View>
+                <Image source = {require('../../icons/home.png')} style = {tab.icon}/>
+                {/* <Count/> */}
+            </View>
+        }
+    },
+    Screen_AR: {
+        screen: ARComponent,
         navigationOptions: {
             tabBarLabel: () =>
-                <Text style = {tab.text}>Favoristes</Text>,
+                <Text style = {tab.text}>Location</Text>,
             tabBarIcon: () =>
                 <View>
-                    <Image source = {require('../../icons/favor.png')} style = {tab.icon}/> 
-                    <Count/>
+                    <Image source = {require('../../icons/map-marker-radius.png')} style = {tab.icon}/> 
                 </View>
 
         }
     },
 
-    Screen_Setting: {
-        screen: Reminders,
+    Screen_Devices: {
+        screen: Device_AddNavigation,
         navigationOptions: {
             tabBarLabel: () =>
-                <Text style = {
-                    tab.text
-                } > Settings </Text>,
-            tabBarIcon: () =>
+                <Text style = {tab.text} >Devices</Text>,
+            tabBarIcon: (TintColor) =>
                 <Image
             source = {
-                require('../../icons/settings.png')
+                require('../../icons/speaker-wireless.png')
             }
             style = {
                 tab.icon
-            }
-            />
-        }
-    },
-
-    Screen_About: {
-        screen: AboutComponent,
-        navigationOptions: {
-            tabBarLabel: () =>
-                <Text style = {
-                    tab.text
-                } > About </Text>,
-            tabBarIcon: () =>
-                <Image
-            source = {
-                require('../../icons/about.png')
-            }
-            style = {
-                [tab.icon]
             }
             />
         }
@@ -81,21 +98,24 @@ export const TabComponent = TabNavigator({
 
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    animationEnabled: true,
+    animationEnabled: false,
     tabBarOptions: {
-        // activeTintColor: '#2c3e50',
         style: {
-            backgroundColor: '#1F2B40',
-            opacity: 1,
-        },
+            backgroundColor: 'transparent',            
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0
+          },
         tabStyle: {
-            height: height * 0.09,
+            height: height * 0.075,
+            backgroundColor: 'rgba(22, 22, 22, 0.2)',
         },
         iconStyle: {
             alignItems: 'flex-end',
-            justifyContent: 'center',
-            width: 60,
-            height: 32,
+            justifyContent: 'space-between',
+            width: 55,
+            height: 23,
         },
         upperCaseLabel: false,
         renderIndicator: () => null,
@@ -107,12 +127,12 @@ export const TabComponent = TabNavigator({
 const tab = StyleSheet.create({
     text: {
         fontSize: 12,
-        color: '#F6F7F8',
+        color: '#fff',
     },
     icon: {
-        top: 5,
-        height: 25,
-        width: 25,
+        height: 22,
+        width: 22,
+        tintColor: "#fff"
     },
     favor: {
         position: 'absolute',
