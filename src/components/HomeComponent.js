@@ -3,6 +3,9 @@ import { Text, View,BackHandler, TouchableOpacity,Alert,AsyncStorage,StatusBar,I
 import {HomeHeaderComponent} from '../route/HeaderComponent'
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import {LocaleConfig} from 'react-native-calendars';
+import {SmoothLine} from 'react-native-pathjs-charts';
+import 'core-js/es6/symbol';
+import 'core-js/fn/symbol/iterator';
 const {
   height
 } = Dimensions.get('window')
@@ -21,7 +24,156 @@ LocaleConfig.defaultLocale = 'fr';
 export default class HomeComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: [
+        [{
+          "x": 0,
+          "y": 0
+        }, {
+          "x": 1,
+          "y": 60
+        }, {
+          "x": 2,
+          "y": 50
+        }, {
+          "x": 3,
+          "y": 64
+        }, {
+          "x": 4,
+          "y": 63
+        }, {
+          "x": 5,
+          "y": 74
+        }, {
+          "x": 6,
+          "y": 35
+        }, {
+          "x": 7,
+          "y": 46
+        }, {
+          "x": 8,
+          "y": 13
+        }, {
+          "x": 9,
+          "y": 17
+        }, {
+          "x": 10,
+          "y": 38
+        }, {
+          "x": 11,
+          "y": 39
+        }, {
+          "x": 12,
+          "y": 43
+        }, {
+          "x": 13,
+          "y": 43
+        }, {
+          "x": 14,
+          "y": 52
+        }, {
+          "x": 15,
+          "y": 55
+        }, {
+          "x": 16,
+          "y": 86
+        }, {
+          "x": 17,
+          "y": 82
+        }, {
+          "x": 18,
+          "y": 85
+        }, {
+          "x": 19,
+          "y": 100
+        }, {
+          "x": 20,
+          "y": 36
+        }, {
+          "x": 21,
+          "y": 34
+        }, {
+          "x": 22,
+          "y": 23
+        }, {
+          "x": 23,
+          "y": 56
+        }],
+        [{
+          "x": 0,
+          "y": 20
+        }, {
+          "x": 1,
+          "y": 22
+        }, {
+          "x": 2,
+          "y": 23
+        }, {
+          "x": 3,
+          "y": 10
+        }, {
+          "x": 4,
+          "y": 23
+        }, {
+          "x": 5,
+          "y": 17
+        }, {
+          "x": 6,
+          "y": 14
+        }, {
+          "x": 7,
+          "y": 15
+        }, {
+          "x": 8,
+          "y": 16
+        }, {
+          "x": 9,
+          "y": 17
+        }, {
+          "x": 10,
+          "y": 27
+        }, {
+          "x": 11,
+          "y": 23
+        }, {
+          "x": 12,
+          "y": 22
+        }, {
+          "x": 13,
+          "y": 26
+        }, {
+          "x": 14,
+          "y": 23
+        }, {
+          "x": 15,
+          "y": 27
+        }, {
+          "x": 16,
+          "y": 26
+        }, {
+          "x": 17,
+          "y": 23
+        }, {
+          "x": 18,
+          "y": 29
+        }, {
+          "x": 19,
+          "y": 30
+        }, {
+          "x": 20,
+          "y": 31
+        }, {
+          "x": 21,
+          "y": 34
+        }, {
+          "x": 22,
+          "y": 23
+        }, {
+          "x": 23,
+          "y": 21
+        }]
+      ]
+    };
     this.onDayPress = this.onDayPress.bind(this);
     console.ignoredYellowBox = [""];
   }
@@ -64,6 +216,50 @@ onDayPress(day) {
   };
 
   render() {
+    let options = {
+      width: 320,
+      height: 180,
+      color: '#E6E6E6',
+      margin: {
+        top: 20,
+        left: 25,
+        bottom: 25,
+        right: 20
+      },
+      animate: {
+        type: 'delayed',
+        duration: 100,
+        fillTransition:1
+      },
+      axisX: {
+        showAxis: true,
+        showLines: true,
+        showLabels: true,
+        showTicks: false,
+        zeroAxis: false,
+        orient: 'bottom',
+        label: {
+          fontFamily: 'Arial',
+          fontSize: 12,
+          fontWeight: false,
+          fill: '#ffffff'
+        }
+      },
+      axisY: {
+        showAxis: true,
+        showLines: true,
+        showLabels: true,
+        showTicks: false,
+        zeroAxis: false,
+        orient: 'left',
+        label: {
+          fontFamily: 'Arial',
+          fontSize: 12,
+          fontWeight: false,
+          fill: '#ffffff'
+        }
+      }
+    }
     return (
       <ImageBackground style={styles.backgroundImage} source={require("../../images/wall4.jpg")} blurRadius={2}>
       <View style={{flex: 1,}}>
@@ -71,10 +267,10 @@ onDayPress(day) {
         <View style={{height: "89%"}}>
           <View style={styles.content}>
             <View style={styles.chart}>
-
+              <SmoothLine data={this.state.data} options={options} xKey='x' yKey='y' />
             </View>
             <View style={styles.calendar}>
-            <CalendarList  
+            {/* <CalendarList  
               pastScrollRange={24}
               futureScrollRange={24}
               style={styles.calendars}
@@ -130,8 +326,8 @@ onDayPress(day) {
                   },
                 },
               }}
-            />
-            {/* <Calendar
+            /> */}
+            <Calendar
               style={styles.calendars}
               minDate={'2012-05-10'}
               markingType={'basic'}
@@ -143,8 +339,6 @@ onDayPress(day) {
                 calendarBackground: 'rgba(22, 22, 22, 0.2)',
                 textSectionTitleColor: 'white',
                 dayTextColor: 'rgba(246,247,235, 0.6)',
-                // todayTextColor: '#DB3A34',
-                //selectedDayTextColor: '#FFC857',
                 selectedDayBackgroundColor: 'rgba(255, 255, 255, 0.8)',
                 monthTextColor: 'white',
                 arrowColor: 'white',
@@ -156,7 +350,7 @@ onDayPress(day) {
                 textDayHeaderFontSize: 12,
                 'stylesheet.day.basic': {
                   base: {
-                    width: 20,
+                    width: 32,
                     height: 20,
                     alignItems: 'center',
                     justifyContent: "center",
@@ -175,8 +369,14 @@ onDayPress(day) {
                     backgroundColor: 'rgba(255, 255, 255, 0)'
                   },
                   selectedText:{
-                    color: "#000",
-                  }
+                    color: "#fff",
+                  },
+                  selected: {
+                    backgroundColor: "transparent",
+                    borderColor: "#fff",
+                    borderWidth: 1,
+                    borderRadius: 16,
+                  },
                 },
                 'stylesheet.calendar.main':{
                   week: {
@@ -186,7 +386,7 @@ onDayPress(day) {
                     justifyContent: 'space-around'
                   },
                 }
-            }}/> */}
+            }}/>
             </View>
           </View>
           <View style={styles.tab}>
