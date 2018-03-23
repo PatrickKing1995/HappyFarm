@@ -27,6 +27,7 @@ export default class Login extends Component {
       password: "",
       loading: true
     };
+    console.ignoredYellowBox = [""];
   }
 
   componentWillMount() {

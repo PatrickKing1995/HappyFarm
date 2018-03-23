@@ -23,6 +23,7 @@ export default class HomeComponent extends Component {
     super(props);
     this.state = {};
     this.onDayPress = this.onDayPress.bind(this);
+    console.ignoredYellowBox = [""];
   }
 
   componentDidMount() {
@@ -119,8 +120,14 @@ onDayPress(day) {
                     backgroundColor: 'rgba(255, 255, 255, 0)'
                   },
                   selectedText:{
-                    color: "#000",
-                  }
+                    color: "#fff",
+                  },
+                  selected: {
+                    backgroundColor: "transparent",
+                    borderColor: "#fff",
+                    borderWidth: 1,
+                    borderRadius: 16,
+                  },
                 },
               }}
             />
